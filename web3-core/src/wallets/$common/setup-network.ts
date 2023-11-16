@@ -1,4 +1,4 @@
-import { chains } from '../../config/chains.ts'
+import { chains } from '../../config/chains.js'
 
 /**
  * @param {number} networkId
@@ -31,9 +31,15 @@ async function addChain (provider, networkId) {
  */
 export async function commonSetupNetwork (provider, networkId) {
   try {
+    const chainParams = getNetworkParams(networkId)
+
+    if (!chainParams) {
+      throw Error(`No configuration found for network: ${networkId}`);
+    }
+
     await provider.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: getNetworkParams(networkId).chainId }]
+      params: [{ chainId: chainParams.chainId }]
     })
 
     return true

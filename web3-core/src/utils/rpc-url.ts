@@ -1,4 +1,4 @@
-import { rpcUrls } from '../config/rpcUrls.ts'
+import { rpcUrls } from '../config/rpcUrls.js'
 
 const getRandomIntInclusive = (min, max) => {
   const randomBuffer = new Uint32Array(1)

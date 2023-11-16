@@ -1,10 +1,10 @@
-import BaseGoerliLogo from '../logos/BaseGoerliLogo.tsx'
-import ArbitrumLogo from '../logos/ArbitrumLogo.tsx'
-import AvaxLogo from '../logos/AvaxLogo.tsx'
-import BSCLogo from '../logos/BSCLogo.tsx'
-import EthLogo from '../logos/EthLogo.tsx'
-import PolygonLogo from '../logos/PolygonLogo.tsx'
-import { rpcUrls } from './rpcUrls.ts'
+import BaseGoerliLogo from '../logos/BaseGoerliLogo.jsx'
+import ArbitrumLogo from '../logos/ArbitrumLogo.jsx'
+import AvaxLogo from '../logos/AvaxLogo.jsx'
+import BSCLogo from '../logos/BSCLogo.jsx'
+import EthLogo from '../logos/EthLogo.jsx'
+import PolygonLogo from '../logos/PolygonLogo.jsx'
+import { rpcUrls } from './rpcUrls.js'
 
 /**
  *

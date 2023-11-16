@@ -1,22 +1,29 @@
 {
   "include": [
-    "src",
-    "test"
+    "src"
   ],
   "compilerOptions": {
-    "rootDir": "./",
-    "baseUrl": "./",
-    "moduleResolution": "NodeNext",
+    "rootDir": "./src",
     "module": "NodeNext",
-    "strictNullChecks": false,
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
-    "jsx": "react",
-    "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
+    "lib": [
+      "es2018",
+      "es2017",
+      "es7",
+      "es6",
+      "dom"
+    ],
+    "declaration": true,
+    "declarationDir": "./types",
+    "emitDeclarationOnly": false,
     "outDir": "dist",
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "strictNullChecks": true,
     "typeRoots": [
       "./node_modules/@types",
       "./src/types"
-    ]
+    ],
+    "resolveJsonModule": true
   }
 }

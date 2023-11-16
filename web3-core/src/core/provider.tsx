@@ -1,10 +1,12 @@
-import React, { createContext, useContext, useMemo, useState, useEffect } from "react";
-import invariant from "tiny-invariant";
+import React, { createContext, useContext, useMemo, useState, useEffect } from 'react'
 
-import { Web3ReactContextInterface } from "./types.ts";
-import { Manager } from "./manager.ts";
+import invariant from 'tiny-invariant'
 
-export const PRIMARY_KEY = "primary";
+import { Web3ReactContextInterface } from './types.js'
+import { Manager } from './manager.js'
+
+export const PRIMARY_KEY = 'primary'
+
 const CONTEXTS: { [key: string]: React.Context<Web3ReactContextInterface> } =
   {};
 
@@ -41,8 +43,7 @@ export function createWeb3ReactRoot(
     getLibrary,
     children,
   }: Web3ReactProviderArguments): JSX.Element {
-
-    const [manager] = useState(new Manager());
+    const [manager] = useState(() => new Manager());
 
     const [state, setState] = useState<any>({})
     const { connector, provider, chainId, account, error } = state

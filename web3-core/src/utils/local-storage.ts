@@ -22,6 +22,7 @@ function clear () {
   window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY)
 }
 
+// TODO: Avoid using localstorage as it isn't accessible when rendered in third party iframe
 const walletTrackerLS = {
   trackConnector,
   trackChain,

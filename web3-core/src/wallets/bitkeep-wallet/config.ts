@@ -1,6 +1,6 @@
-import { Config, ConnectorNames } from "../../types.ts";
-import { getProvider } from "./provider.ts";
-import BitKeepLogo from "../../logos/BitKeepLogo.tsx";
+import { Config, ConnectorNames } from '../../types/enum.js'
+import { getProvider } from './provider.js'
+import BitKeepLogo from '../../logos/BitKeepLogo.jsx'
 
 const isInstalled = () => !!getProvider()
 

@@ -1,6 +1,6 @@
-import { Config, ConnectorNames } from "../../types.ts";
-import { getProvider } from "./provider.ts";
-import CoinbaseLogo from "../../logos/CoinbaseLogo.tsx";
+import { Config, ConnectorNames } from '../../types/enum.js'
+import { getProvider } from './provider.js'
+import CoinbaseLogo from '../../logos/CoinbaseLogo.jsx'
 
 const isInstalled = () => !!getProvider()
 

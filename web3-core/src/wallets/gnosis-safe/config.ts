@@ -1,6 +1,6 @@
-import { Config, ConnectorNames } from "../../types.ts";
-import GnosisSafeLogo from "../../logos/GnosisSafeLogo.tsx";
-import { isIFrame } from "../../utils/iframe.ts";
+import { Config, ConnectorNames } from '../../types/enum.js'
+import GnosisSafeLogo from '../../logos/GnosisSafeLogo.jsx'
+import { isIFrame } from '../../utils/iframe.js'
 
 const isInstalled = () => !!isIFrame()
 

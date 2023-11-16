@@ -1,15 +1,14 @@
 import { useCallback } from 'react'
 
-import { UnsupportedChainIdError, useWeb3React } from '../core/index.ts'
+import { UnsupportedChainIdError, useWeb3React } from '../core/index.js'
 
-import { NetworkNames } from '../config/chains.ts'
-import { ConfigMap } from '../config/wallets.ts'
+import { NetworkNames } from '../config/chains.js'
 
-import { getConnectorByName } from '../utils/connectors.ts'
-import { CustomException } from '../utils/CustomException.ts'
-import { walletTrackerLS } from '../utils/local-storage.ts'
+import { getConnectorByName } from '../wallets/connectors.js'
+import { CustomException } from '../utils/CustomException.js'
+import { walletTrackerLS } from '../utils/local-storage.js'
 
-import { ConnectorNames } from '../types.ts'
+import { ConnectorNames } from '../types/enum.js'
 
 const activateWithConnector = async (activate, connector) => {
   try {
@@ -32,10 +31,16 @@ export function useActivator () {
 
   const login = useCallback(
     async (networkId: number, connectorName: ConnectorNames) => {
-      const connector = await getConnectorByName(connectorName, networkId)
-      const config = ConfigMap[connectorName]
+      if (!networkId) {
+        console.log('Please select a network') // alert is not called when the document is sandboxed
+        window.alert('Please select a network')
 
-      if (!connector || !config) {
+        return
+      }
+
+      const connector = await getConnectorByName(connectorName, networkId)
+
+      if (!connector) {
         console.info('Invalid connector', connectorName, networkId)
 
         return
@@ -53,16 +58,8 @@ export function useActivator () {
         }
 
         if (error && !(error instanceof UnsupportedChainIdError)) {
-          // Error handler throws an error object with more details, if it's a known error.
+          // Error handler throws an error object with more details
           connector.handleError(error)
-
-          // Fallback exception
-          throw CustomException({
-            type: 'error',
-            title: 'Error',
-            message: 'Something went wrong',
-            error: error
-          })
         }
 
         // if chain is not supported, add chain to the wallet
@@ -72,7 +69,7 @@ export function useActivator () {
           throw CustomException({
             type: 'error',
             title: 'Wrong network',
-            message: `Please switch to ${NetworkNames[networkId]} in your ${config.name}`,
+            message: `Please switch to ${NetworkNames[networkId]} in your ${connector.NAME}`,
             error: error
           })
         }
@@ -89,8 +86,17 @@ export function useActivator () {
 
       } catch (error) {
         walletTrackerLS.clear()
+        console.log(error.message) // alert is not called when the document is sandboxed
         window.alert(error.message)
         console.error(error);
+        console.error(error.error);
+  
+        // throw CustomException({
+        //   type: 'error',
+        //   title: 'Error',
+        //   message: 'Something went wrong',
+        //   error: error
+        // })
       }
     },
     [activate]

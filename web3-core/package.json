@@ -6,49 +6,52 @@
   "type": "module",
   "files": [
     "dist",
+    "types",
     "package.json"
   ],
-  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
     "./context": {
-      "import": "./dist/context.js",
-      "types": "./dist/context.d.ts",
-      "require": "./dist/context.cjs",
-      "default": "./dist/context.js"
+      "types": "./types/context.d.ts",
+      "import": "./dist/context.jsx",
+      "default": "./dist/context.jsx"
     },
     "./utils": {
+      "types": "./types/utils.d.ts",
       "import": "./dist/utils.js",
-      "types": "./dist/utils.d.ts",
-      "require": "./dist/utils.cjs",
       "default": "./dist/utils.js"
     },
     "./*": {
+      "types": "./types/*.d.ts",
       "import": "./dist/*.js",
-      "types": "./dist/*.d.ts",
-      "require": "./dist/*.cjs",
       "default": "./dist/*.js"
     }
   },
+  "types": "index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "types/*"
+      ]
+    }
+  },
   "scripts": {
-    "build": "tsup",
+    "build": "tsc",
     "lint": "eslint ."
   },
   "dependencies": {
-    "@gnosis.pm/safe-apps-provider": "0.13.2",
-    "@gnosis.pm/safe-apps-sdk": "7.8.0",
     "@metamask/post-message-stream": "4.0.0",
     "@metamask/providers": "8.1.1",
+    "@safe-global/safe-apps-provider": "^0.18.0",
+    "@safe-global/safe-apps-sdk": "^8.1.0",
     "@web3-react/abstract-connector": "^6.0.7",
     "redux": "^4.1.2",
-    "tiny-warning": "^1.0.3",
+    "tiny-invariant": "^1.0.6",
     "ua-parser-js": "1.0.33"
   },
   "devDependencies": {
@@ -57,10 +60,13 @@
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "tsup": "^7.2.0"
+    "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@ethersproject/providers": "5.5.1",
+    "@ethersproject/providers": ">=5.5.1",
     "react": ">=16.8"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }

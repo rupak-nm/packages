@@ -1,7 +1,6 @@
-import SafeAppsSDK from '@gnosis.pm/safe-apps-sdk'
-import { SafeAppProvider } from '@gnosis.pm/safe-apps-provider'
-import { AbstractConnector } from '@web3-react/abstract-connector'
-import { CustomException } from '../../utils/CustomException.ts'
+import { SafeAppProvider, getNewSDK } from '../../vendor/gnosis.js'
+import { AbstractConnector } from '../../vendor/web3-react.js'
+import { CustomException } from '../../utils/CustomException.js'
 
 class NoSafeContext extends Error {
   constructor () {
@@ -20,13 +19,14 @@ class UserRejectedRequestError extends Error {
 }
 
 class SafeAppConnector extends AbstractConnector {
+  public readonly NAME = 'Gnosis Safe Wallet'
   private sdk;
   private safe;
   private provider;
 
   constructor (opts) {
     super()
-    this.sdk = new SafeAppsSDK.default(opts)    
+    this.sdk = getNewSDK(opts)    
   }
 
   async activate () {
@@ -55,13 +55,13 @@ class SafeAppConnector extends AbstractConnector {
     return this.provider
   }
 
-  async getChainId () {
+  async getChainId (): Promise<number | string> {
     const provider = await this.getProvider()
 
     return provider.chainId
   }
 
-  async getAccount () {
+  async getAccount (): Promise<null | string> {
     const safe = await this.getSafeInfo()
 
     return safe.safeAddress
@@ -109,7 +109,7 @@ class SafeAppConnector extends AbstractConnector {
     throw CustomException({
       type: 'error',
       title: 'Error',
-      message: 'Gnosis Safe: Something went wrong',
+      message: `${this.NAME}: ${error.message || 'Something went wrong'}`,
       error: error
     })
   }

@@ -4,6 +4,6 @@ export {
   useWeb3React,
   getWeb3ReactContext,
   PRIMARY_KEY,
-} from "./provider.tsx";
+} from './provider.jsx'
 
-export { UnsupportedChainIdError } from "./manager.ts";
+export { UnsupportedChainIdError } from './manager.js'

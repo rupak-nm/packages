@@ -1,18 +1,18 @@
-import { explorer } from '../config/chains.ts'
+import { explorer } from '../config/chains.js'
 
-export const getTxLink = (networkId, tx) => {
+export const getTxLink = (networkId: number | string, tx) => {
   return (explorer.tx[networkId] || '').replace('%s', tx.hash)
 }
 
-export const getAddressLink = (networkId, address) => {
+export const getAddressLink = (networkId: number | string, address) => {
   return (explorer.address[networkId] || '').replace('%s', address)
 }
 
-export const getBlockLink = (networkId, blockNumber) => {
+export const getBlockLink = (networkId: number | string, blockNumber) => {
   return (explorer.block[networkId] || '').replace('%s', blockNumber)
 }
 
-export const getTokenLink = (networkId, tokenAddress, userAddress = '') => {
+export const getTokenLink = (networkId: number | string, tokenAddress, userAddress = '') => {
   if (!tokenAddress) {
     return '#'
   }

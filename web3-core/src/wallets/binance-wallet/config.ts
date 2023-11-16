@@ -1,7 +1,7 @@
-import { Config, ConnectorNames } from "../../types.ts";
-import { getProvider } from "./provider.ts";
-import BinanceWalletLogo from "../../logos/BinanceWalletLogo.tsx";
-import { isMobile } from "../../utils/userAgent.ts";
+import { Config, ConnectorNames } from '../../types/enum.js'
+import { getProvider } from './provider.js'
+import BinanceWalletLogo from '../../logos/BinanceWalletLogo.jsx'
+import { isMobile } from '../../utils/userAgent.js'
 
 const isInstalled = () => !!getProvider()
 

@@ -1,10 +1,10 @@
-import { legacy_createStore as createStore } from "redux";
+import { legacy_createStore as createStore } from 'redux'
 
-import { ConnectorUpdate, ConnectorEvent } from "@web3-react/types";
-import { AbstractConnector } from "@web3-react/abstract-connector";
-import warning from "../utils/tiny-warning.ts";
+import { ConnectorUpdate, ConnectorEvent } from '@web3-react/types'
+import { AbstractConnector } from '@web3-react/abstract-connector'
+import { warning } from '../vendor/tiny-warning.js'
 
-import { normalizeChainId, normalizeAccount } from "./normalizers.ts";
+import { normalizeChainId, normalizeAccount } from './normalizers.js'
 
 class StaleConnectorError extends Error {
   constructor() {
@@ -136,7 +136,7 @@ async function augmentConnectorUpdate(
 
 export class Manager {
   private updateBusterValue = 0;
-  private previousConnector = null;
+  private previousConnector?: any = null;
   private unsubscribe = () => {};
 
   constructor(private store = createStore(reducer)) {
@@ -153,6 +153,7 @@ export class Manager {
     const updateBusterInitial = this.updateBusterValue;
 
     let activated = false;
+
     try {
       const update = await connector
         .activate()
@@ -167,6 +168,7 @@ export class Manager {
       if (this.updateBusterValue > updateBusterInitial) {
         throw new StaleConnectorError();
       }
+
       this.store.dispatch({
         type: ActionType.ACTIVATE_CONNECTOR,
         payload: { connector, ...augmentedUpdate, onError },
@@ -285,7 +287,12 @@ export class Manager {
 
       const { connector } = this.store.getState();
 
-      if (this.previousConnector !== connector && this.previousConnector) {
+      if(this.previousConnector === connector) {
+        return
+      }
+
+      if (this.previousConnector) {
+        this.previousConnector?.deactivate?.()
         this.previousConnector
           .off(ConnectorEvent.Update, this.handleUpdate)
           .off(ConnectorEvent.Error, this.handleError)
@@ -306,14 +313,14 @@ export class Manager {
   handleUnmount = () => {
     this.unsubscribe();
     
-    const state= this.store.getState();
-    if (!state) {
-      return
-    }
-    const { connector } =state
+    const state = this.store.getState();
 
-    if (connector) {
-      connector.deactivate();
+    if (state && state.connector) {
+      state.connector?.deactivate?.();
+    }
+
+    if (this.previousConnector) {
+      this.previousConnector?.deactivate?.()
     }
   };
 }

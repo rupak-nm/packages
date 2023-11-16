@@ -1,16 +1,13 @@
 /* eslint-disable no-prototype-builtins */
 // https://github.com/binance-chain-npm/bsc-web3-connector/blob/main/src/index.ts
 
-import warning from '../../utils/tiny-warning.ts'
+import { warning } from '../../vendor/tiny-warning.js'
 
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
-import { getProvider } from './provider.ts'
-import { CustomException } from '../../utils/CustomException.ts'
-
-const isProduction = process.env.NODE_ENV === 'production'
-
-const __DEV__ = !isProduction
+import { getProvider } from './provider.js'
+import { CustomException } from '../../utils/CustomException.js'
+import { __DEV__ } from '../$common/env.js'
 
 function parseSendReturn (sendReturn) {
   return sendReturn.hasOwnProperty('result') ? sendReturn.result : sendReturn
@@ -33,22 +30,25 @@ class UserRejectedRequestError extends Error {
 }
 
 export class BscConnector extends AbstractConnector {
+  public readonly NAME = 'Binance Chain Wallet'
+
   constructor (kwargs) {
     super(kwargs)
     this.handleNetworkChanged = this.handleNetworkChanged.bind(this)
     this.handleChainChanged = this.handleChainChanged.bind(this)
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleError = this.handleError.bind(this)
   }
 
-  handleChainChanged (chainId) {
+  handleChainChanged (chainId: string): void {
     if (__DEV__) {
       console.log("Handling 'chainChanged' event with payload", chainId)
     }
     this.emitUpdate({ chainId, provider: getProvider() })
   }
 
-  handleAccountsChanged (accounts) {
+  handleAccountsChanged (accounts: Array<string>): void {
     if (__DEV__) {
       console.log("Handling 'accountsChanged' event with payload", accounts)
     }
@@ -59,18 +59,18 @@ export class BscConnector extends AbstractConnector {
     }
   }
 
-  handleClose (code, reason) {
+  handleClose (code: number, reason: string): void {
     if (__DEV__) {
       console.log("Handling 'close' event with payload", code, reason)
     }
     this.emitDeactivate()
   }
 
-  handleNetworkChanged (networkId) {
+  handleNetworkChanged (chainId: string): void {
     if (__DEV__) {
-      console.log("Handling 'networkChanged' event with payload", networkId)
+      console.log("Handling 'networkChanged' event with payload", chainId)
     }
-    this.emitUpdate({ chainId: networkId, provider: getProvider() })
+    this.emitUpdate({ chainId: chainId, provider: getProvider() })
   }
 
   async activate () {
@@ -114,7 +114,7 @@ export class BscConnector extends AbstractConnector {
     return getProvider()
   }
 
-  async getChainId () {
+  async getChainId (): Promise<number | string> {
     const provider = getProvider()
 
     if (!provider) {
@@ -155,7 +155,7 @@ export class BscConnector extends AbstractConnector {
     return chainId
   }
 
-  async getAccount () {
+  async getAccount (): Promise<null | string> {
     const provider = getProvider()
     if (!provider) {
       throw new NoBscProviderError()
@@ -245,7 +245,7 @@ export class BscConnector extends AbstractConnector {
       throw CustomException({
         type: 'error',
         title: 'Provider Error',
-        message: 'Binance Wallet: Could not connect. No provider found',
+        message: `${this.NAME}: Could not connect. No provider found`,
         error: error
       })
     }
@@ -253,7 +253,7 @@ export class BscConnector extends AbstractConnector {
     throw CustomException({
       type: 'error',
       title: 'Error',
-      message: 'Binance Wallet: Something went wrong',
+      message: `${this.NAME}: ${error.message || 'Something went wrong'}`,
       error: error
     })
   }

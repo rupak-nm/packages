@@ -1,6 +1,6 @@
-import { Config, ConnectorNames } from "../../types.ts";
-import { getProvider } from "./provider.ts";
-import MetamaskLogo from "../../logos/MetamaskLogo.tsx";
+import { Config, ConnectorNames } from '../../types/enum.js'
+import { getProvider } from './provider.js'
+import MetamaskLogo from '../../logos/MetamaskLogo.jsx'
 
 const isInstalled = () => !!getProvider()
 

@@ -1,17 +1,14 @@
 /* eslint-disable no-prototype-builtins */
 // Forked from: https://github.com/Uniswap/web3-react/blob/v6/packages/injected-connector/src/index.ts
 
-import warning from '../../utils/tiny-warning.ts'
+import { warning } from '../../vendor/tiny-warning.js'
 
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
-import { getProvider } from './provider.ts'
-import { commonSetupNetwork } from '../$common/setup-network.ts'
-import { CustomException } from 'src/utils/CustomException.ts'
-
-const isProduction = process.env.NODE_ENV === 'production'
-
-const __DEV__ = !isProduction
+import { getProvider } from './provider.js'
+import { commonSetupNetwork } from '../$common/setup-network.js'
+import { CustomException } from '../../utils/CustomException.js'
+import { __DEV__ } from '../$common/env.js'
 
 function parseSendReturn (sendReturn) {
   return sendReturn.hasOwnProperty('result') ? sendReturn.result : sendReturn
@@ -34,22 +31,27 @@ class UserRejectedRequestError extends Error {
 }
 
 export class MetamaskConnector extends AbstractConnector {
+  public readonly NAME = 'Metamask Wallet'
+
   constructor (kwargs) {
     super(kwargs)
-    this.handleNetworkChanged = this.handleNetworkChanged.bind(this)
-    this.handleChainChanged = this.handleChainChanged.bind(this)
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this)
+    this.handleChainChanged = this.handleChainChanged.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleConnect = this.handleConnect.bind(this)
+    // this.handleDisconnect = this.handleDisconnect.bind(this)
+    this.handleError = this.handleError.bind(this)
+    this.handleNetworkChanged = this.handleNetworkChanged.bind(this)
   }
 
-  handleChainChanged (chainId) {
+  handleChainChanged (chainId: string): void {
     if (__DEV__) {
       console.log("Handling 'chainChanged' event with payload", chainId)
     }
     this.emitUpdate({ chainId, provider: getProvider() })
   }
 
-  handleAccountsChanged (accounts) {
+  handleAccountsChanged (accounts: Array<string>): void {
     if (__DEV__) {
       console.log("Handling 'accountsChanged' event with payload", accounts)
     }
@@ -60,19 +62,34 @@ export class MetamaskConnector extends AbstractConnector {
     }
   }
 
-  handleClose (code, reason) {
+  handleClose (code: number, reason: string): void {
     if (__DEV__) {
       console.log("Handling 'close' event with payload", code, reason)
     }
     this.emitDeactivate()
   }
 
-  handleNetworkChanged (networkId) {
+  handleNetworkChanged (chainId: string): void {
     if (__DEV__) {
-      console.log("Handling 'networkChanged' event with payload", networkId)
+      console.log("Handling 'networkChanged' event with payload", chainId)
     }
-    this.emitUpdate({ chainId: networkId, provider: getProvider() })
+    this.emitUpdate({ chainId: chainId, provider: getProvider() })
   }
+
+  handleConnect (connectInfo: { chainId: string }): void {
+    if (__DEV__) {
+      console.log("Handling 'connect' event with payload", connectInfo.chainId)
+    }
+    this.emitUpdate({ chainId: connectInfo.chainId, provider: getProvider() })
+  }
+
+  // handleDisconnect (error: ProviderRpcError): void {
+  //   if (__DEV__) {
+  //     console.log("Handling 'disconnect' event with payload", error)
+  //   }
+
+  //   this.emitError(error)
+  // }
 
   async activate () {
     const provider = getProvider()
@@ -80,10 +97,13 @@ export class MetamaskConnector extends AbstractConnector {
     if (!provider) {
       throw new NoEthereumProviderError()
     }
+
     if (provider.on) {
-      provider.on('chainChanged', this.handleChainChanged)
       provider.on('accountsChanged', this.handleAccountsChanged)
+      provider.on('chainChanged', this.handleChainChanged)
       provider.on('close', this.handleClose)
+      provider.on('connect', this.handleConnect)
+      // provider.on('disconnect', this.handleDisconnect)
       provider.on('networkChanged', this.handleNetworkChanged)
     }
 
@@ -113,7 +133,7 @@ export class MetamaskConnector extends AbstractConnector {
     return getProvider()
   }
 
-  async getChainId () {
+  async getChainId (): Promise<number | string> {
     const provider = getProvider()
 
     if (!provider) {
@@ -153,7 +173,7 @@ export class MetamaskConnector extends AbstractConnector {
     return chainId
   }
 
-  async getAccount () {
+  async getAccount (): Promise<null | string> {
     const provider = getProvider()
 
     if (!provider) {
@@ -181,11 +201,13 @@ export class MetamaskConnector extends AbstractConnector {
 
   deactivate () {
     const provider = getProvider()
-
+    
     if (provider && provider.removeListener) {
-      provider.removeListener('chainChanged', this.handleChainChanged)
       provider.removeListener('accountsChanged', this.handleAccountsChanged)
+      provider.removeListener('chainChanged', this.handleChainChanged)
       provider.removeListener('close', this.handleClose)
+      provider.removeListener('connect', this.handleConnect)
+      // provider.removeListener('disconnect', this.handleDisconnect)
       provider.removeListener('networkChanged', this.handleNetworkChanged)
     }
   }
@@ -232,11 +254,11 @@ export class MetamaskConnector extends AbstractConnector {
         error: error
       })
     }
-  
+    warning(false, 'eth_requestAccounts was unsuccessful, falling back to enable')  
     throw CustomException({
       type: 'error',
       title: 'Error',
-      message: 'Metamask Wallet: Something went wrong',
+      message: `${this.NAME}: ${error.message || 'Something went wrong'}`,
       error: error
     })
   }

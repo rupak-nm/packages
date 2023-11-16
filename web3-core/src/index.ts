@@ -1,9 +1,7 @@
-export * from './core/index.ts'
+export {ConnectorNames} from './types/enum.js'
 
-export * as explorer from './utils/explorer.ts'
+export {useConnectWallet, ConnectWallet} from './context.jsx'
 
-export {registerToken} from './utils/register-token.ts'
+export {useRegisterToken} from './hooks/useRegisterToken.jsx'
 
-export {ConnectorNames} from './types.ts'
-
-export {useConnectWallet, ConnectWallet} from './context.tsx'
+export * as explorer from './utils/explorer.js'

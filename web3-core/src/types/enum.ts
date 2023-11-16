@@ -23,7 +23,7 @@ interface Config {
   connectorName: ConnectorNames;
   Icon: any;
   isInstalled: () => boolean;
-  getInstallationURL: () => string;
+  getInstallationURL: () => string | undefined;
 }
 
 export { ChainId, ConnectorNames, Config}

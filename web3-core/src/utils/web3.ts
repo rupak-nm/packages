@@ -2,8 +2,8 @@ import {
   JsonRpcProvider,
   Web3Provider
 } from '@ethersproject/providers'
-import { getNodeUrl } from './rpc-url.ts'
-import { POLLING_INTERVAL } from '../config/constants.ts'
+import { getNodeUrl } from './rpc-url.js'
+import { POLLING_INTERVAL } from '../config/constants.js'
 
 // Fallback Provider
 export const getProvider = (networkId) => {

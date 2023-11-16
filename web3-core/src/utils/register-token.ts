@@ -1,3 +1,5 @@
+import { ExternalProvider } from "@ethersproject/providers"
+
 /**
  * Prompt the user to add a custom token to metamask
  * returns true if the token has been added, false otherwise
@@ -6,11 +8,11 @@ export const registerToken = async (
   tokenAddress: string,
   tokenSymbol: string,
   tokenDecimals: number,
-  tokenImage: string,
-  provider: any,
+  tokenImage?: string,
+  provider?: ExternalProvider
 ): Promise<boolean> => {
   try {
-    if (!provider || !provider.request || typeof provider.request !== 'function') {
+    if (!provider || typeof provider.request !== 'function') {
       return false
     }
   
@@ -24,7 +26,7 @@ export const registerToken = async (
           decimals: tokenDecimals,
           image: tokenImage
         }
-      }
+      } as unknown as any[]
     })
 
     return true

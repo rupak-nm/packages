@@ -11,5 +11,9 @@ export const getProvider = () => {
     return window.ethereum
   }
 
+  if (window.ethereum.providers && window.ethereum.providers?.find(p => p.isMetaMask)){
+    return window.ethereum.providers.find(p => p.isMetaMask)
+  }
+
   return undefined
 }

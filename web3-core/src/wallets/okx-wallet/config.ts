@@ -1,6 +1,6 @@
-import { Config, ConnectorNames } from "../../types.ts";
-import { getProvider } from "./provider.ts";
-import OKXWalletLogo from "../../logos/OKXWalletLogo.tsx";
+import { Config, ConnectorNames } from '../../types/enum.js'
+import { getProvider } from './provider.js'
+import OKXWalletLogo from '../../logos/OKXWalletLogo.jsx'
 
 const isInstalled = () => !!getProvider()
 
