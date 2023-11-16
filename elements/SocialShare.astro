@@ -1,0 +1,76 @@
+---
+import Button from "./buttons/Button.astro";
+import { qualifyURL } from "./util/dns";
+
+interface Props {
+  title: string;
+  intro: string;
+  pageUrl: string;
+}
+
+const { title, intro, pageUrl } = Astro.props;
+
+const getUrl = (param: string, base: string): string => {
+  const url = new URL(base);
+  url.searchParams.append(param, `${qualifyURL(pageUrl)}`);
+  return url.href;
+};
+
+const t = (x: string): string => x;
+---
+
+<div class="social share container">
+  <Button
+    classname="script only copy link outlined"
+    variant={"secondary-gray"}
+    size="md"
+    iconLeading="copy-01"
+    iconOnlyMobile
+  >
+    <span data-toggled-text={t("Copied")}>
+      {t("Copy Link")}
+    </span>
+  </Button>
+
+  <Button
+    type={"anchor"}
+    classname="twitter share outlined"
+    target="_blank"
+    variant={"secondary-gray"}
+    size="md"
+    iconLeading="twitter"
+    icon="only"
+    href={getUrl("url", `https://twitter.com/intent/tweet?text=${intro}`)}
+  >
+    t("Share on Twitter")
+  </Button>
+
+  <Button
+    type={"anchor"}
+    classname="facebook share outlined"
+    target="_blank"
+    variant={"secondary-gray"}
+    size="md"
+    iconLeading="facebook"
+    icon="only"
+    href={getUrl("u", "https://www.facebook.com/sharer/sharer.php")}
+  >
+    t("Share on Facebook")
+  </Button>
+
+  <Button
+    type={"anchor"}
+    classname="linkedin share outlined"
+    target="_blank"
+    variant={"secondary-gray"}
+    size="md"
+    iconLeading="linkedin"
+    icon="only"
+    href={getUrl(
+      "url",
+      `https://www.linkedin.com/shareArticle?mini=true&title=${title}&summary=${intro}&source=Neptune Mutual`
+    )}
+  >
+    Share on linkedin
+  </Button>
+</div>

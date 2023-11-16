@@ -1,0 +1,37 @@
+---
+import Anchor from "./_anchor.astro";
+import Button from "./_button.astro";
+import Icon from "../../Icon.astro";
+
+interface Props {
+  type: "anchor" | "button";
+  icon?: string;
+  className?: string;
+  iconOnlyMobile?: boolean;
+  iconVariant?: string;
+  iconLeading?: string;
+  iconTrailing?: string;
+}
+
+const { type, icon, iconOnlyMobile, iconVariant, iconLeading, iconTrailing } =
+  Astro.props;
+
+const UntypedElement: any = type === "anchor" ? Anchor : Button;
+---
+
+<UntypedElement {...Astro.props}>
+  {iconLeading && <Icon variant={iconLeading} />}
+
+  <span
+    class:list={["content", { hidden: icon === "only" }]}
+    data-icon-only-mobile={iconOnlyMobile}
+  >
+    <slot />
+  </span>
+
+  {
+    (iconTrailing || iconVariant) && (
+      <Icon variant={iconTrailing || iconVariant} />
+    )
+  }
+</UntypedElement>

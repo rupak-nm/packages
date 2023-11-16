@@ -1,0 +1,20 @@
+---
+import { paths } from "./icons/paths";
+
+interface Props {
+  variant?: string;
+  size?: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+}
+
+const { variant, size } = Astro.props;
+
+let innerHTML = null;
+
+if (variant !== undefined) {
+  innerHTML = await paths[variant].then((x: any) => x.default);
+}
+---
+
+<i data-size={size}>
+  <Fragment set:html={innerHTML || variant} />
+</i>

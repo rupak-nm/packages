@@ -1,0 +1,36 @@
+---
+interface Props {
+  id?: string;
+  classname?: string;
+  disabled?: boolean;
+  size: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+  state?: string;
+  destructive: boolean;
+  iconOnlyMobile: boolean; // @todo: delete this
+  onclick?: string;
+}
+
+const {
+  id,
+  className,
+  disabled,
+  size,
+  state,
+  destructive,
+  iconOnlyMobile,
+  onclick,
+} = Astro.props;
+---
+
+<button
+  id={id}
+  onclick={onclick}
+  class={`ui ${(className || "").trim()} button`}
+  data-text-size={size}
+  disabled={disabled || state === "disabled"}
+  data-state={state}
+  data-destructive={destructive}
+  data-icon-only-mobile={iconOnlyMobile}
+>
+  <slot />
+</button>

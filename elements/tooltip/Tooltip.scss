@@ -1,0 +1,82 @@
+@use "design-system/colors";
+@use "design-system/shadows";
+@use "design-system/typography/styles";
+@use "design-system/typography/weights";
+
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Applies to all tooltips */
+[data-tooltip]::before,
+[data-tooltip]::after {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  display: none;
+  opacity: 0;
+  transform: translate(0, -0.5em);
+  animation: tooltips-vert 300ms ease-out forwards;
+}
+
+[data-tooltip]::before {
+  content: "";
+  border: 5px solid transparent;
+  z-index: 1001;
+  bottom: 100%;
+  border-bottom-width: 0;
+  border-top-color: colors.$gray-900;
+  left: 50%;
+
+  .dark & {
+    border-top-color: colors.$gray-800;
+  }
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  text-align: center;
+  min-width: 3em;
+  max-width: 450px;
+  white-space: nowrap;
+  overflow: auto;
+  padding: 0.75ch 2ch;
+  box-shadow: shadows.$md;
+  z-index: 1000;
+  background: colors.$gray-900;
+  color: colors.$white;
+  border-radius: 8px;
+  bottom: calc(100% + 5px);
+
+  .dark & {
+    background: colors.$gray-800;
+  }
+}
+
+[data-tooltip][data-flow="left"]::after {
+  right: -1rem;
+}
+
+/* Make the tooltips respond to hover */
+[data-tooltip]:hover::before,
+[data-tooltip]:hover::after {
+  display: block;
+}
+
+/* don't show empty tooltips */
+[data-tooltip=""]::before,
+[data-tooltip=""]::after {
+  display: none !important;
+}
+
+/* KEYFRAMES */
+@keyframes tooltips-vert {
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}

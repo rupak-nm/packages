@@ -1,0 +1,59 @@
+@use "design-system/colors";
+@use "design-system/typography/styles";
+@use "design-system/typography/weights";
+@use "design-system/theme/light";
+@use "design-system/theme/dark";
+@use "design-system/shadows";
+
+
+.ui.message {
+  margin-top: 6px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  border-radius: 4px;
+  @include styles.text-md;
+  @include weights.regular;
+
+
+  &.info {
+    color: colors.$blue-dark-700;
+  }
+
+
+
+  &.warn {
+    color: colors.$warning-600;
+  }
+
+  &.success{
+    color: colors.$success-700;
+  }
+
+  &.error {
+    color: colors.$error-700;
+  }
+
+
+
+  i {
+    margin-top: 6px;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.dark .ui.message {
+  &.success {
+    color: colors.$success-600;
+  }
+
+  &.error {
+    color: colors.$error-500;
+  }
+}
+

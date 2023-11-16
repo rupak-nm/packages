@@ -1,0 +1,14 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  variant: string;
+  size?: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+}
+
+const { size, variant } = Astro.props;
+---
+
+<div class="featured icon container" data-size={size}>
+  <Icon variant={variant} size={size} />
+</div>

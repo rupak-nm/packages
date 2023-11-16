@@ -1,0 +1,12 @@
+{
+  "name": "assets",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "bin": "./index.js",
+  "dependencies": {
+    "fs-extra": "^11.1.1"
+  }
+}

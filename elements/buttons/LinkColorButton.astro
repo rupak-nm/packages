@@ -1,0 +1,14 @@
+---
+import Button from "./_base/index.astro";
+const { classname } = Astro.props;
+
+// @warning: Refactor this file to use proper types
+const UntypedButton: any = Button;
+---
+
+<UntypedButton
+  className={`${classname || ""} link color`.trim()}
+  {...Astro.props}
+>
+  <slot />
+</UntypedButton>

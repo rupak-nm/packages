@@ -1,0 +1,37 @@
+---
+import Icon from "./Icon.astro";
+import { normalizeUrl } from "./util/url";
+
+interface Props {
+  tags?: TagWithHref[];
+  showAll?: boolean;
+  size?: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+}
+
+const { tags, showAll, size } = Astro.props;
+const all = showAll ? tags : tags?.slice(0, 1);
+---
+
+{
+  tags && (
+    <div class="tags container">
+      {all?.map((tag) => {
+        return tag.href ? (
+          <a class="tag" data-color={tag.color} href={normalizeUrl(tag.href)}>
+            {tag.icon && (
+              <Icon variant={tag.icon.toLowerCase()} size={tag.size || size} />
+            )}
+            <span>{tag.name || tag.text}</span>
+          </a>
+        ) : (
+          <span class="tag" data-color={tag.color}>
+            {tag.icon && (
+              <Icon variant={tag.icon.toLowerCase()} size={tag.size || size} />
+            )}
+            <span>{tag.name || tag.text}</span>
+          </span>
+        );
+      })}
+    </div>
+  )
+}

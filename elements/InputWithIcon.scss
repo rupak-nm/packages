@@ -1,0 +1,113 @@
+@use "design-system/colors";
+@use "design-system/typography/styles";
+@use "design-system/typography/weights";
+@use "design-system/theme/light";
+@use "design-system/theme/dark";
+@use "design-system/shadows";
+
+
+.input.with.icon {
+  display: flex;
+  background-color: light.$primary-background-color;
+  border: 1px solid colors.$gray-300;
+  box-shadow: shadows.$xs;
+  border-radius: 8px;  
+  gap: 8px;
+  padding: 10px;
+  align-items: center;
+  @include styles.text-sm;
+  @include weights.medium;
+
+  &.search svg {
+    height: 20px;
+    width: 20px;
+  }
+
+  svg {
+    flex-grow: 1;
+  }
+
+  &:not(&:disabled) {    
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:hover,
+    &:focus-visible,
+    &:focus-within {
+      outline: none;
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$primary-100;
+    }
+  }
+
+  &.search input {
+    @include styles.text-md;
+  }
+
+  input {
+    color: colors.$gray-700;
+    border: none;
+    outline: none;
+    flex-grow: 2;
+    width: 80%;
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: colors.$gray-500;
+      opacity: 1; /* Firefox */
+    }
+  
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: colors.$gray-500;
+    }
+  
+    ::-ms-input-placeholder { /* Microsoft Edge */
+      color: colors.$gray-500;
+    }
+  
+  }
+
+  
+}
+
+.dark  .input.with.icon {
+  background-color: colors.$black-800;
+  border: 1px solid colors.$gray-800;
+
+  &.search {
+    input {
+      color: colors.$gray-25;
+      
+      &::placeholder {
+        color: colors.$gray-25;
+      }
+    }
+  }
+
+
+  &:not(&:disabled) {    
+    &[data-state="focused"],
+    &:focus,
+    &:active,
+    &:hover,
+    &:focus-visible,
+    &:focus-within {
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$primary-800;
+    }
+  }
+
+  input {
+    color: colors.$gray-300;
+
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: colors.$gray-300;
+    }
+  
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: colors.$gray-300;
+    }
+  
+    &::-ms-input-placeholder { /* Microsoft Edge */
+      color: colors.$gray-300;
+    }
+  }
+}
+

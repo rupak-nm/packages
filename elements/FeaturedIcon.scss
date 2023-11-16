@@ -1,0 +1,72 @@
+@use "design-system/theme/light";
+@use "design-system/theme/dark";
+@use "design-system/colors";
+@use "design-system/utils";
+
+.featured.icon.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  max-width: 64px;
+  max-height: 64px;
+  aspect-ratio: 1/1;
+
+  color: colors.$primary-600;
+  background: colors.$primary-100;
+  box-shadow: 0 0 0 4px colors.$primary-50,
+    inset 0 0 0 4px colors.$primary-50;
+
+  &[data-size="xs"] {
+    width: 24px;
+  }
+
+  &[data-size="sm"] {
+    width: 32px;
+  }
+
+  &[data-size="md"] {
+    width: 40px;
+  }
+
+  &[data-size="lg"] {
+    width: 48px;
+  }
+
+  &[data-size="xl"] {
+    width: 56px;
+  }
+
+  &[data-size="2xl"] {
+    width: 64px;
+  }
+
+  @media (max-width: 767px) {
+    box-shadow: 0 0 0 3px colors.$primary-50, inset 0 0 0 3px colors.$primary-50;
+
+    &[data-size="md"] {
+      width: 32px;
+    }
+
+    &[data-size="lg"] {
+      width: 40px;
+    }
+
+    &[data-size="xl"] {
+      width: 48px;
+    }
+  }
+}
+
+
+.dark .featured.icon.container {
+  color: colors.$white;
+  background: colors.$gray-600;
+  box-shadow: 0 0 0 4px colors.$gray-700, inset 0 0 0 4px colors.$gray-700;
+
+  @media (max-width: 767px) {
+    box-shadow: 0 0 0 3px colors.$gray-700, inset 0 0 0 3px colors.$gray-700;
+  }
+
+}

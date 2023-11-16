@@ -1,0 +1,24 @@
+{
+  "name": "icons",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist/*"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    "default": "./dist"
+  },
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vite-plugin-svgr": "^3.2.0",
+    "rollup": "^3.28.1",
+    "vite": "^4.4.9"
+  }
+}

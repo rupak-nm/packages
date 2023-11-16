@@ -1,0 +1,71 @@
+---
+import Button from "./buttons/Button.astro";
+
+import { getPagination } from "./util/pagination";
+
+interface Props {
+  totalPages: number;
+  currentPage: number;
+  hrefString: string
+  className?: string;
+}
+
+const { hrefString, totalPages, currentPage, className } = Astro.props;
+
+const { previous, pages, next } = getPagination(totalPages, currentPage);
+const previousHref = previous ? hrefString.replace('{page}', previous.toString()) : ''
+const nextHref = next ? hrefString.replace('{page}', next.toString()) : ''
+
+const t = (x: string): string => x;
+---
+
+<div class={`ui pagination${className ? " " + className : ""}`}>
+  <div class="container">
+    <Button
+      type={"anchor"}
+      classname={"previous pointer page"}
+      href={previousHref}
+      variant={"link-color"}
+      iconLeading="arrow-left"
+      disabled={parseInt((currentPage || 0).toString()) <= 1}
+    >
+      {t("Previous")}
+    </Button>
+
+    <div class="page numbers">
+      {
+        pages &&
+          pages.map((page) => {
+            return page ? (
+              <Button
+                classname={
+                  parseInt((currentPage || 0).toString()) === page
+                    ? "active page pointer"
+                    : "page pointer"
+                }
+                type={"anchor"}
+                href={hrefString.replace('{page}', page.toString())}
+                variant={"link-color"}
+              >
+                {page}
+              </Button>
+            ) : (
+              <span class="continues"> ... </span>
+            );
+          })
+      }
+    </div>
+
+    <Button
+      type={"anchor"}
+      classname={"next page pointer"}
+      href={nextHref}
+      variant={"link-color"}
+      iconTrailing="arrow-right"
+      disabled={parseInt((currentPage || 0).toString()) ===
+        parseInt((totalPages || 0).toString())}
+    >
+      {t("Next")}
+    </Button>
+  </div>
+</div>

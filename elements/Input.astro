@@ -1,0 +1,143 @@
+---
+import Hint from "./Hint.astro";
+import Message from "./Message.astro";
+
+interface KeyValuePair {
+  key: string;
+  value: string;
+}
+
+interface Props {
+  id?: string;
+  placeholder: string;
+  required?: boolean;
+  maxlength?: number;
+  "data-member"?: string;
+  readonly?: boolean;
+  value?: string;
+  options?: KeyValuePair[];
+  type:
+    | astroHTML.JSX.HTMLInputTypeAttribute
+    | "textarea"
+    | "select"
+    | undefined
+    | null;
+  label?: string;
+  autocomplete?: "on" | "off";
+  disabled?: boolean;
+  message?: {
+    type: "info" | "success" | "warn" | "error";
+    text: string;
+    icon: string;
+    size: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+    className: string;
+  };
+  className?: string;
+  hint?: string;
+  hideLabel?: boolean;
+}
+
+const {
+  id,
+  className,
+  label,
+  placeholder,
+  autocomplete,
+  required,
+  maxlength,
+  readonly,
+  value,
+  type,
+  disabled,
+  message,
+  hint,
+  options,
+  hideLabel,
+} = Astro.props;
+---
+
+<div class={`${className || ""} input container`.trim()}>
+  {
+    label && (
+      <label
+        class:list={[
+          {
+            "sr-only": hideLabel,
+          },
+        ]}
+        for={id}
+      >
+        {label}
+      </label>
+    )
+  }
+
+  {
+    !(type === "textarea" || type === "select") && (
+      <input
+        id={id}
+        data-member={Astro.props["data-member"]}
+        required={required}
+        maxlength={maxlength}
+        readonly={readonly}
+        type={type}
+        disabled={disabled}
+        placeholder={placeholder}
+        autocomplete={autocomplete || "off"}
+        value={value}
+      />
+    )
+  }
+
+  {
+    type === "textarea" && (
+      <textarea
+        id={id}
+        data-member={Astro.props["data-member"]}
+        required={required}
+        maxlength={maxlength}
+        readonly={readonly}
+        disabled={disabled}
+        placeholder={placeholder}
+        autocomplete={autocomplete || "off"}
+        rows="16"
+        set:text={value}
+      />
+    )
+  }
+
+  {
+    type === "select" && (
+      <select
+        id={id}
+        data-member={Astro.props["data-member"]}
+        required={required}
+        disabled={disabled}
+        data-value={value}
+      >
+        {options &&
+          options.map((option) => {
+            return (
+              <option value={option.key || option.value}>{option.value}</option>
+            );
+          })}
+      </select>
+    )
+  }
+
+  {
+    message && (
+      <Message
+        className={message.className}
+        type={message.type}
+        icon={message.icon}
+        size={message.size}
+      >
+        {message.text}
+      </Message>
+    )
+  }
+
+  {hint && <Hint set:html={hint} />}
+  <slot />
+</div>

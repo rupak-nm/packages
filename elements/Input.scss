@@ -1,0 +1,172 @@
+@use "design-system/colors";
+@use "design-system/typography/styles";
+@use "design-system/typography/weights";
+@use "design-system/theme/light";
+@use "design-system/theme/dark";
+@use "design-system/shadows";
+@use "design-system/utils";
+
+
+.input.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &.error {
+    input,
+    textarea,
+    select {
+      border: 2px solid colors.$error-700;
+    }
+
+    input:focus,
+    input:hover,
+    textarea:focus,
+    textarea:hover,
+    select:focus,
+    select:hover {
+      box-shadow: 0px 1px 2px rgb(16 24 40 / 5%), 0px 0px 0px 4px colors.$error-100 !important;
+    }
+  }
+
+  label {
+    @include styles.text-sm;
+    @include weights.medium;
+    flex: 1;
+  }
+
+  select {
+    -moz-appearance: none; 
+    -webkit-appearance: none; 
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+  }
+
+
+  input,
+  textarea,
+  select {
+    color: colors.$gray-700;
+    display: flex;
+    width: 100%;
+    background-color: light.$primary-background-color;
+    border: 1px solid colors.$gray-300;
+
+    box-shadow: shadows.$xs;
+    border-radius: 8px;
+    padding: 12px 14px;
+    gap: 8px;
+
+    @include styles.text-md;
+    @include weights.regular;
+
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: colors.$gray-500;
+      opacity: 1;
+      /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: colors.$gray-500;
+    }
+
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: colors.$gray-500;
+    }
+
+    &:hover:not(&:disabled):not([data=disabled]),
+    &:focus:not(&:disabled):not([data=disabled]),
+    &:active:not(&:disabled):not([data=disabled]),
+    &:focus-visible:not(&:disabled):not([data=disabled]) {
+      outline: none;
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$primary-100;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+  }
+
+  textarea {
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  &:has(input[required])label:after,
+  &:has(textarea[required])label:after,
+  &:has(select[required])label:after {
+    content: '*';
+    padding: 0 0.25em;
+    color: colors.$rose-500;
+  }
+}
+
+.dark .input.container {
+  select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  }
+
+
+  input,
+  textarea,
+  select {
+    color: colors.$gray-300;
+    background-color: colors.$black-800;
+    border: 1px solid colors.$gray-800;
+
+
+    &::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: colors.$gray-500;
+    }
+
+    &:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: colors.$gray-500;
+    }
+
+    &::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: colors.$gray-500;
+    }
+
+    &:hover:not(&:disabled):not([data=disabled]),
+    &:focus:not(&:disabled):not([data=disabled]),
+    &:active:not(&:disabled):not([data=disabled]),
+    &:focus-visible:not(&:disabled):not([data=disabled]) {
+      outline: none;
+      box-shadow: shadows.$xs, 0px 0px 0px 4px colors.$primary-800;
+      ;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+
+  &.error {
+    input,
+    textarea,
+    select {
+      border: 2px solid colors.$error-700;
+    }
+
+    input:focus,
+    input:hover,
+    textarea:focus,
+    textarea:hover,
+    select:focus,
+    select:hover {
+      box-shadow: 0px 1px 2px rgb(16 24 40 / 5%), 0px 0px 0px 4px colors.$error-300 !important;
+    }
+  }
+}

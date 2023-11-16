@@ -1,0 +1,17 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  type: "info" | "success" | "warn" | "error";
+  className?: string;
+  icon: string;
+  size?: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+}
+
+const { icon, type, size, className } = Astro.props;
+---
+
+<div class={`ui ${type} ${className || ""} message`.trim()}>
+  {icon && <Icon variant={icon} size={size} />}
+  <slot />
+</div>

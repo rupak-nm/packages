@@ -1,0 +1,296 @@
+@use "design-system/colors";
+@use "design-system/typography/styles";
+@use "design-system/typography/weights";
+@use "design-system/theme/light";
+@use "design-system/theme/dark";
+@use "design-system/shadows";
+
+.tags.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  .tag {
+    padding: 2px 8px;
+    border-radius: 16px;
+    @include styles.text-xs;
+    @include weights.medium;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    gap: 6px;
+  }
+
+  
+  .tag[data-color=gray], .tag[data-color] {
+    background-color: colors.$gray-200;
+    color: colors.$gray-700;
+  }
+  
+  .tag[data-color=gray-blue] {
+    background-color: colors.$gray-blue-100;
+    color: colors.$gray-blue-700;
+  }
+  
+  .tag[data-color=gray-cool] {
+    background-color: colors.$gray-cool-100;
+    color: colors.$gray-cool-700;
+  }
+  
+  .tag[data-color=gray-modern] {
+    background-color: colors.$gray-modern-100;
+    color: colors.$gray-modern-700;
+  }
+  
+  .tag[data-color=gray-neutral] {
+    background-color: colors.$gray-neutral-100;
+    color: colors.$gray-neutral-700;
+  }
+  
+  .tag[data-color=gray-iron] {
+    background-color: colors.$gray-iron-100;
+    color: colors.$gray-iron-700;
+  }
+  
+  .tag[data-color=gray-true] {
+    background-color: colors.$gray-true-100;
+    color: colors.$gray-true-700;
+  }
+  
+  .tag[data-color=gray-warm] {
+    background-color: colors.$gray-warm-100;
+    color: colors.$gray-warm-700;
+  }
+  
+  .tag[data-color=moss] {
+    background-color: colors.$moss-100;
+    color: colors.$moss-700;
+  }
+  
+  .tag[data-color=green-light] {
+    background-color: colors.$green-light-100;
+    color: colors.$green-light-700;
+  }
+  
+  .tag[data-color=green] {
+    background-color: colors.$green-100;
+    color: colors.$green-700;
+  }
+  
+  .tag[data-color=teal] {
+    background-color: colors.$teal-100;
+    color: colors.$teal-700;
+  }
+  
+  .tag[data-color=cyan] {
+    background-color: colors.$cyan-100;
+    color: colors.$cyan-700;
+  }
+  
+  .tag[data-color=blue-light] {
+    background-color: colors.$blue-light-100;
+    color: colors.$blue-light-700;
+  }
+  
+  .tag[data-color=blue] {
+    background-color: colors.$blue-100;
+    color: colors.$blue-700;
+  }
+  
+  .tag[data-color=blue-dark] {
+    background-color: colors.$blue-dark-100;
+    color: colors.$blue-dark-700;
+  }
+  
+  .tag[data-color=indigo] {
+    background-color: colors.$indigo-100;
+    color: colors.$indigo-700;
+  }
+  
+  .tag[data-color=violet] {
+    background-color: colors.$violet-100;
+    color: colors.$violet-700;
+  }
+  
+  .tag[data-color=purple] {
+    background-color: colors.$purple-100;
+    color: colors.$purple-700;
+  }
+  
+  .tag[data-color=fuchsia] {
+    background-color: colors.$fuchsia-100;
+    color: colors.$fuchsia-700;
+  }
+  
+  .tag[data-color=pink] {
+    background-color: colors.$pink-100;
+    color: colors.$pink-700;
+  }
+  
+  .tag[data-color=rose] {
+    background-color: colors.$rose-100;
+    color: colors.$rose-700;
+  }
+  
+  .tag[data-color=orange] {
+    background-color: colors.$orange-100;
+    color: colors.$orange-700;
+  }
+  
+  .tag[data-color=orange-dark] {
+    background-color: colors.$orange-dark-100;
+    color: colors.$orange-dark-700;
+  }
+  
+  .tag[data-color=yellow] {
+    background-color: colors.$yellow-100;
+    color: colors.$yellow-700;
+  }
+  
+  .tag[data-color=primary] {
+    background-color: colors.$primary-100;
+    color: colors.$primary-700;
+  }
+  
+  .tag[data-color=error] {
+    background-color: colors.$error-100;
+    color: colors.$error-700;
+  }
+  
+  .tag[data-color=warning] {
+    background-color: colors.$warning-100;
+    color: colors.$warning-700;
+  }
+  
+  .tag[data-color=success] {
+    background-color: colors.$success-100;
+    color: colors.$success-700;
+  }
+  
+}
+
+.dark .tags.container {   
+  .tag[data-color] {
+    color: colors.$white;
+    background-color:colors.$gray-700;
+  }
+
+  .tag[data-color=gray], .tag[data-color] {
+    color:colors.$gray-200;
+  }
+  
+  .tag[data-color=gray-blue] {
+    color:colors.$gray-blue-200;
+  }
+  
+  .tag[data-color=gray-cool] {
+    color:colors.$gray-cool-200;
+  }
+  
+  .tag[data-color=gray-modern] {
+    color:colors.$gray-modern-200;
+  }
+  
+  .tag[data-color=gray-neutral] {
+    color:colors.$gray-neutral-200;
+  }
+  
+  .tag[data-color=gray-iron] {
+    color:colors.$gray-iron-200;
+  }
+  
+  .tag[data-color=gray-true] {
+    color:colors.$gray-true-200;
+  }
+  
+  .tag[data-color=gray-warm] {
+    color:colors.$gray-warm-200;
+  }
+  
+  .tag[data-color=moss] {
+    color:colors.$moss-200;
+  }
+  
+  .tag[data-color=green-light] {
+    color:colors.$green-light-200;
+  }
+  
+  .tag[data-color=green] {
+    color:colors.$green-200;
+  }
+  
+  .tag[data-color=teal] {
+    color:colors.$teal-200;
+  }
+  
+  .tag[data-color=cyan] {
+    color:colors.$cyan-200;
+  }
+  
+  .tag[data-color=blue-light] {
+    color:colors.$blue-light-200;
+  }
+  
+  .tag[data-color=blue] {
+    color:colors.$blue-200;
+  }
+  
+  .tag[data-color=blue-dark] {
+    color:colors.$blue-dark-200;
+  }
+  
+  .tag[data-color=indigo] {
+    color:colors.$indigo-200;
+  }
+  
+  .tag[data-color=violet] {
+    color:colors.$violet-200;
+  }
+  
+  .tag[data-color=purple] {
+    color:colors.$purple-200;
+  }
+  
+  .tag[data-color=fuchsia] {
+    color:colors.$fuchsia-200;
+  }
+  
+  .tag[data-color=pink] {
+    color:colors.$pink-200;
+  }
+  
+  .tag[data-color=rose] {
+    color:colors.$rose-200;
+  }
+  
+  .tag[data-color=orange] {
+    color:colors.$orange-200;
+  }
+  
+  .tag[data-color=orange-dark] {
+    color:colors.$orange-dark-200;
+  }
+  
+  .tag[data-color=yellow] {
+    color:colors.$yellow-200;
+  }
+  
+  .tag[data-color=primary] {
+    color:colors.$primary-200;
+  }
+  
+  .tag[data-color=error] {
+    color:colors.$error-200;
+  }
+  
+  .tag[data-color=warning] {
+    color:colors.$warning-200;
+  }
+  
+  .tag[data-color=success] {
+    color:colors.$success-200;
+  }    
+}
+  

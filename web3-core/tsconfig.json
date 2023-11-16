@@ -1,0 +1,22 @@
+{
+  "include": [
+    "src",
+    "test"
+  ],
+  "compilerOptions": {
+    "rootDir": "./",
+    "baseUrl": "./",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "strictNullChecks": false,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ]
+  }
+}

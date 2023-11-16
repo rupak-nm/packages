@@ -1,0 +1,21 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  className: string;
+  iconProps: {
+    variant: string;
+    size?: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+  };
+  placeholder: string;
+  value: string;
+  id?: string;
+}
+
+const { className, iconProps, placeholder, value, id } = Astro.props;
+---
+
+<div class={`input with icon ${className || ""}`.trim()}>
+  {Object.keys(iconProps).length > 0 && <Icon {...iconProps} />}
+  <input placeholder={placeholder} autocomplete="off" value={value} id={id} />
+</div>

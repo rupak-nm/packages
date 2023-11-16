@@ -1,0 +1,68 @@
+@use "design-system/colors";
+@use "design-system/typography/styles";
+@use "design-system/typography/weights";
+@use "design-system/theme/light";
+@use "design-system/theme/dark";
+@use "design-system/shadows";
+@use "design-system/blurs";
+@use "design-system/utils";
+
+
+.social.share.container {
+  margin: 32px 0 24px;
+  padding-top: 16px;
+  border-top: 1px solid colors.$gray-200;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  @media (max-width: 767px) {
+    justify-content: center;
+    border-top: none;
+    margin-bottom: 0;
+  }
+
+
+
+  a.outlined.button:not(.container)  {
+    width: 42px;
+    height: 42px;  
+  }
+
+    .outlined.button {
+      backdrop-filter: blurs.$sm;
+
+      background-color: colors.$white;
+      color: colors.$gray-500;
+      border: 1px solid colors.$gray-200;
+
+
+      &:not(:disabled):not([data-disabled]):hover {
+        background-color: colors.$gray-50;
+        color: colors.$gray-700;
+      }
+
+      &:disabled,
+      &[data-disabled] {
+        border: 1px solid colors.$gray-100;
+        color: colors.$gray-300;
+        cursor: not-allowed;
+      }
+    }
+  
+}
+
+.dark .social.share.container {
+  border-top: 1px solid colors.$gray-800;
+
+  .outlined.button {
+    background-color: colors.$gray-800;
+    color: colors.$gray-50;
+    border: 1px solid colors.$gray-600;
+    
+    &:not(:disabled):not([data-disabled]):hover {
+      color: colors.$gray-50;
+      background-color: colors.$gray-900;
+    }
+  }
+}

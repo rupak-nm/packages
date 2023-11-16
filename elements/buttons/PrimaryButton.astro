@@ -1,0 +1,12 @@
+---
+import Button from "./_base/index.astro";
+const { classname } = Astro.props;
+---
+
+<Button
+  type={"button"}
+  className={`${classname || ""} primary`.trim()}
+  {...Astro.props}
+>
+  <slot />
+</Button>

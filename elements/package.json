@@ -1,0 +1,11 @@
+{
+  "name": "elements",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "design-system": "*",
+    "@types/node": "^18.11.18"
+  }
+}

@@ -1,0 +1,45 @@
+---
+import LinkColor from "./LinkColorButton.astro";
+import LinkGray from "./LinkGrayButton.astro";
+import Primary from "./PrimaryButton.astro";
+import SecondaryGray from "./SecondaryGrayButton.astro";
+
+interface Props {
+  id?: string;
+  variant?: "link-color" | "link-gray" | "primary" | "secondary-gray";
+  type?: "anchor" | "button";
+  inline?: boolean;
+  classname?: string;
+  href?: string;
+  target?: "_blank" | "_self" | "_top" | "_parent";
+  rel?: string;
+  size?: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+  iconTrailing?: string;
+  iconLeading?: string;
+  iconVariant?: string;
+  iconOnlyMobile?: boolean;
+  destructive?: boolean;
+  disabled?: boolean;
+  state?: "enabled" | "disabled";
+  icon?: "only";
+  onclick?: string;
+}
+
+const { variant } = Astro.props;
+let Button = Primary;
+
+switch (variant) {
+  case "link-color":
+    Button = LinkColor;
+    break;
+  case "link-gray":
+    Button = LinkGray;
+    break;
+  case "secondary-gray":
+    Button = SecondaryGray;
+}
+---
+
+<Button {...Astro.props}>
+  <slot />
+</Button>

@@ -1,0 +1,47 @@
+---
+import { normalizeUrl } from "../../util/url";
+
+interface Props {
+  id?: string;
+  classname?: string;
+  disabled?: boolean;
+  href: string;
+  target?: "_self" | "_blank" | "_parent" | "_top" | (string & {});
+  rel?: string;
+  size: "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
+  state?: string;
+  destructive: boolean;
+  iconOnlyMobile: boolean; // @todo: delete this
+  onclick?: string;
+}
+
+const {
+  id,
+  className,
+  disabled,
+  href,
+  target,
+  rel,
+  size,
+  state,
+  destructive,
+  iconOnlyMobile,
+  onclick,
+} = Astro.props;
+---
+
+<a
+  id={id}
+  onclick={onclick}
+  class={`ui ${(className || "").trim()} button`}
+  data-text-size={size}
+  data-disabled={disabled || state === "disabled"}
+  data-state={state}
+  data-destructive={destructive}
+  data-icon-only-mobile={iconOnlyMobile}
+  href={normalizeUrl(href)}
+  target={target}
+  rel={rel}
+>
+  <slot />
+</a>

@@ -1,0 +1,35 @@
+@use "design-system/colors";
+@use "design-system/typography/styles";
+@use "design-system/typography/weights";
+
+
+p.input.hint {
+  margin-top: 6px;
+  color: colors.$gray-600;
+  @include styles.text-sm;
+  @include weights.regular;
+
+  
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid;
+    border-color: inherit;
+    color: colors.$blue-700;
+
+    &:hover, &:active{
+      color: colors.$rose-700;
+    }
+  }
+}
+
+.dark p.input.hint { 
+  color: colors.$gray-50;
+
+  a {
+    color: colors.$blue-500;
+
+    &:hover, &:active{
+      color: colors.$rose-500;
+    }
+  }
+}
